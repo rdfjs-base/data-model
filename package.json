@@ -1,0 +1,32 @@
+{
+  "name": "rdf-data-model",
+  "version": "0.9.0",
+  "description": "A basic implementation of the RDFJS Data Model",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rdf-ext/rdf-data-model.git"
+  },
+  "keywords": [
+    "rdf",
+    "rdfjs",
+    "rdf-ext",
+    "data-model"
+  ],
+  "author": "Thomas Bergwinkl <bergi@axolotlfarm.org> (https://www.bergnet.org/people/bergi/card#me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rdf-ext/rdf-data-model/issues"
+  },
+  "homepage": "https://github.com/rdf-ext/rdf-data-model",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "standard": "^7.0.1"
+  },
+  "readmeFilename": "README.md"
+}
