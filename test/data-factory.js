@@ -2,133 +2,133 @@
 
 /* global describe, it */
 
-const assert = require('assert')
-const BlankNode = require('../lib/blank-node')
-const DataFactory = require('../lib/data-factory')
-const DefaultGraph = require('../lib/default-graph')
-const Literal = require('../lib/literal')
-const NamedNode = require('../lib/named-node')
-const Quad = require('../lib/quad')
-const Variable = require('../lib/variable')
+var assert = require('assert')
+var BlankNode = require('../lib/blank-node')
+var DataFactory = require('../lib/data-factory')
+var DefaultGraph = require('../lib/default-graph')
+var Literal = require('../lib/literal')
+var NamedNode = require('../lib/named-node')
+var Quad = require('../lib/quad')
+var Variable = require('../lib/variable')
 
-describe('DataFactory', () => {
-  it('should contain a static method .namedNode', () => {
+describe('DataFactory', function () {
+  it('should contain a static method .namedNode', function () {
     assert.equal(typeof DataFactory.namedNode, 'function')
   })
 
-  it('.namedNode should create a NamedNode with the given IRI', () => {
-    let iri = 'http://example.org'
-    let term1 = DataFactory.namedNode(iri)
-    let term2 = new NamedNode(iri)
+  it('.namedNode should create a NamedNode with the given IRI', function () {
+    var iri = 'http://example.org'
+    var term1 = DataFactory.namedNode(iri)
+    var term2 = new NamedNode(iri)
 
     assert.equal(term1.equals(term2), true)
   })
 
-  it('should contain a static method .blankNode', () => {
+  it('should contain a static method .blankNode', function () {
     assert.equal(typeof DataFactory.blankNode, 'function')
   })
 
-  it('.blankNode should create a BlankNode', () => {
-    let term = DataFactory.blankNode()
+  it('.blankNode should create a BlankNode', function () {
+    var term = DataFactory.blankNode()
 
     assert.equal(term.termType, 'BlankNode')
   })
 
-  it('.blankNode should create a BlankNode with the given id', () => {
-    let id = 'z0'
-    let term1 = DataFactory.blankNode(id)
-    let term2 = new BlankNode(id)
+  it('.blankNode should create a BlankNode with the given id', function () {
+    var id = 'z0'
+    var term1 = DataFactory.blankNode(id)
+    var term2 = new BlankNode(id)
 
     assert.equal(term1.equals(term2), true)
   })
 
-  it('should contain a static method .literal', () => {
+  it('should contain a static method .literal', function () {
     assert.equal(typeof DataFactory.literal, 'function')
   })
 
-  it('.literal should create a Literal with the given value', () => {
-    let value = 'example'
-    let term1 = DataFactory.literal(value)
-    let term2 = new Literal(value)
+  it('.literal should create a Literal with the given value', function () {
+    var value = 'example'
+    var term1 = DataFactory.literal(value)
+    var term2 = new Literal(value)
 
     assert.equal(term1.equals(term2), true)
   })
 
-  it('.literal should detect the second parameter as language string', () => {
-    let value = 'example'
-    let language = 'en'
-    let term1 = DataFactory.literal(value, language)
-    let term2 = new Literal(value, language)
+  it('.literal should detect the second parameter as language string', function () {
+    var value = 'example'
+    var language = 'en'
+    var term1 = DataFactory.literal(value, language)
+    var term2 = new Literal(value, language)
 
     assert.equal(term1.equals(term2), true)
   })
 
-  it('.literal should detect the second parameter as datatype string', () => {
-    let value = 'example'
-    let datatype = 'http://example.org'
-    let term1 = DataFactory.literal(value, datatype)
-    let term2 = new Literal(value, null, new NamedNode(datatype))
+  it('.literal should detect the second parameter as datatype string', function () {
+    var value = 'example'
+    var datatype = 'http://example.org'
+    var term1 = DataFactory.literal(value, datatype)
+    var term2 = new Literal(value, null, new NamedNode(datatype))
 
     assert.equal(term1.equals(term2), true)
   })
 
-  it('.literal should detect the second parameter as datatype object', () => {
-    let value = 'example'
-    let datatype = new NamedNode('http://example.org')
-    let term1 = DataFactory.literal(value, datatype)
-    let term2 = new Literal(value, null, datatype)
+  it('.literal should detect the second parameter as datatype object', function () {
+    var value = 'example'
+    var datatype = new NamedNode('http://example.org')
+    var term1 = DataFactory.literal(value, datatype)
+    var term2 = new Literal(value, null, datatype)
 
     assert.equal(term1.equals(term2), true)
   })
 
-  it('should contain a static method .variable', () => {
+  it('should contain a static method .variable', function () {
     assert.equal(typeof DataFactory.variable, 'function')
   })
 
-  it('.variable should create a Variable with the given name', () => {
-    let name = 'example'
-    let term1 = DataFactory.variable(name)
-    let term2 = new Variable(name)
+  it('.variable should create a Variable with the given name', function () {
+    var name = 'example'
+    var term1 = DataFactory.variable(name)
+    var term2 = new Variable(name)
 
     assert.equal(term1.equals(term2), true)
   })
 
-  it('should contain a static method .defaultGraph', () => {
+  it('should contain a static method .defaultGraph', function () {
     assert.equal(typeof DataFactory.defaultGraph, 'function')
   })
 
-  it('.defaultGraph should create a DefaultGraph', () => {
-    let term1 = DataFactory.defaultGraph()
-    let term2 = new DefaultGraph()
+  it('.defaultGraph should create a DefaultGraph', function () {
+    var term1 = DataFactory.defaultGraph()
+    var term2 = new DefaultGraph()
 
     assert.equal(term1.equals(term2), true)
   })
 
-  it('should contain a static method .triple', () => {
+  it('should contain a static method .triple', function () {
     assert.equal(typeof DataFactory.triple, 'function')
   })
 
-  it('.triple should create a Quad from the given arguments with graph set to DefaultGraph', () => {
-    let subject = new NamedNode('http://example.org/subject')
-    let predicate = new NamedNode('http://example.org/predicate')
-    let object = new NamedNode('http://example.org/object')
-    let quad1 = DataFactory.triple(subject, predicate, object)
-    let quad2 = new Quad(subject, predicate, object)
+  it('.triple should create a Quad from the given arguments with graph set to DefaultGraph', function () {
+    var subject = new NamedNode('http://example.org/subject')
+    var predicate = new NamedNode('http://example.org/predicate')
+    var object = new NamedNode('http://example.org/object')
+    var quad1 = DataFactory.triple(subject, predicate, object)
+    var quad2 = new Quad(subject, predicate, object)
 
     assert.equal(quad1.equals(quad2), true)
   })
 
-  it('should contain a static method .quad', () => {
+  it('should contain a static method .quad', function () {
     assert.equal(typeof DataFactory.quad, 'function')
   })
 
-  it('.quad should create a Quad from the given arguments', () => {
-    let subject = new NamedNode('http://example.org/subject')
-    let predicate = new NamedNode('http://example.org/predicate')
-    let object = new NamedNode('http://example.org/object')
-    let graph = new NamedNode('http://example.org/graph')
-    let quad1 = DataFactory.quad(subject, predicate, object, graph)
-    let quad2 = new Quad(subject, predicate, object, graph)
+  it('.quad should create a Quad from the given arguments', function () {
+    var subject = new NamedNode('http://example.org/subject')
+    var predicate = new NamedNode('http://example.org/predicate')
+    var object = new NamedNode('http://example.org/object')
+    var graph = new NamedNode('http://example.org/graph')
+    var quad1 = DataFactory.quad(subject, predicate, object, graph)
+    var quad2 = new Quad(subject, predicate, object, graph)
 
     assert.equal(quad1.equals(quad2), true)
   })

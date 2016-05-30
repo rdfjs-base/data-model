@@ -4,7 +4,9 @@
   "description": "A basic implementation of the RDFJS Data Model",
   "main": "index.js",
   "scripts": {
-    "lint": "standard",
+    "build-dist": "browserify index.js --standalone rdf --outfile dist/rdf-data-model.js",
+    "lint": "standard && eslint",
+    "prepublish": "npm run build-dist",
     "test": "mocha"
   },
   "repository": {
@@ -25,6 +27,8 @@
   "homepage": "https://github.com/rdf-ext/rdf-data-model",
   "dependencies": {},
   "devDependencies": {
+    "browserify": "^13.0.1",
+    "eslint": "^2.11.0",
     "mocha": "^2.4.5",
     "standard": "^7.0.1"
   },
