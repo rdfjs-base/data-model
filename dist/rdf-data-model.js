@@ -9,7 +9,6 @@ module.exports = DataFactory
 'use strict'
 
 function BlankNode (id) {
-  this.termType = BlankNode.termType
   this.value = id || ('b' + (++BlankNode.nextId))
 }
 
@@ -21,7 +20,8 @@ BlankNode.prototype.toCanonical = function () {
   return '_:' + this.value // TODO: escape special chars
 }
 
-BlankNode.termType = 'BlankNode'
+BlankNode.prototype.termType = 'BlankNode'
+
 BlankNode.nextId = 0
 
 module.exports = BlankNode
@@ -36,7 +36,7 @@ var NamedNode = require('./named-node')
 var Quad = require('./quad')
 var Variable = require('./variable')
 
-var DataFactory = {}
+function DataFactory () {}
 
 DataFactory.namedNode = function (value) {
   return new NamedNode(value)
@@ -82,7 +82,6 @@ module.exports = DataFactory
 'use strict'
 
 function DefaultGraph () {
-  this.termType = DefaultGraph.termType
   this.value = ''
 }
 
@@ -94,7 +93,7 @@ DefaultGraph.prototype.toCanonical = function () {
   return ''
 }
 
-DefaultGraph.termType = 'DefaultGraph'
+DefaultGraph.prototype.termType = 'DefaultGraph'
 
 module.exports = DefaultGraph
 
@@ -104,14 +103,13 @@ module.exports = DefaultGraph
 var NamedNode = require('./named-node')
 
 function Literal (value, language, datatype) {
-  this.termType = Literal.termType
   this.value = value
-  this.language = language || ''
 
-  if (this.language) {
+  if (language) {
+    this.language = language
     this.datatype = Literal.langStringDatatype
-  } else {
-    this.datatype = datatype || Literal.stringDatatype
+  } else if (datatype) {
+    this.datatype = datatype
   }
 }
 
@@ -126,9 +124,11 @@ Literal.prototype.toCanonical = function () {
   // TODO: language + datatype support
 }
 
-Literal.termType = 'Literal'
+Literal.prototype.termType = 'Literal'
+Literal.prototype.language = ''
+Literal.prototype.datatype = new NamedNode('http://www.w3.org/2001/XMLSchema#string')
+
 Literal.langStringDatatype = new NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
-Literal.stringDatatype = new NamedNode('http://www.w3.org/2001/XMLSchema#string')
 
 module.exports = Literal
 
@@ -136,7 +136,6 @@ module.exports = Literal
 'use strict'
 
 function NamedNode (iri) {
-  this.termType = NamedNode.termType
   this.value = iri
 }
 
@@ -148,7 +147,7 @@ NamedNode.prototype.toCanonical = function () {
   return '<' + this.value + '>' // TODO: escape special chars
 }
 
-NamedNode.termType = 'NamedNode'
+NamedNode.prototype.termType = 'NamedNode'
 
 module.exports = NamedNode
 
@@ -161,7 +160,10 @@ function Quad (subject, predicate, object, graph) {
   this.subject = subject
   this.predicate = predicate
   this.object = object
-  this.graph = graph || Quad.defaultGraphInstance
+
+  if (graph) {
+    this.graph = graph
+  }
 }
 
 Quad.prototype.equals = function (other) {
@@ -173,10 +175,10 @@ Quad.prototype.toCanonical = function () {
   var graphString = this.graph.toCanonical()
 
   return this.subject.toCanonical() + ' ' + this.predicate.toCanonical() + ' ' + this.object.toCanonical() +
-    (graphString ? (' ' + graphString) : '')
+    (graphString ? (' ' + graphString) : '') + ' .'
 }
 
-Quad.defaultGraphInstance = new DefaultGraph()
+Quad.prototype.graph = new DefaultGraph()
 
 module.exports = Quad
 
@@ -184,7 +186,6 @@ module.exports = Quad
 'use strict'
 
 function Variable (name) {
-  this.termType = Variable.termType
   this.value = name
 }
 
@@ -196,7 +197,7 @@ Variable.prototype.toCanonical = function () {
   return '?' + this.value // TODO: escape special chars
 }
 
-Variable.termType = 'Variable'
+Variable.prototype.termType = 'Variable'
 
 module.exports = Variable
 
