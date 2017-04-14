@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build-dist": "browserify index.js --standalone rdf --outfile dist/rdf-data-model.js",
-    "lint": "standard && eslint",
+    "lint": "standard *.js bin/*.js lib/*.js test/*.js",
     "prepublish": "npm run build-dist",
-    "test": "mocha"
+    "test": "npm run lint && mocha"
+  },
+  "bin": {
+    "rdf-data-model-test": "./bin/test.js"
   },
   "repository": {
     "type": "git",
@@ -30,7 +33,6 @@
     "browserify": "^13.0.1",
     "eslint": "^2.11.0",
     "mocha": "^2.4.5",
-    "rdf-data-model-test-suite": "git://github.com/bergos/rdf-data-model-test-suite.git#develop",
     "standard": "^7.0.1"
   },
   "readmeFilename": "README.md"
