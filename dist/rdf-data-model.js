@@ -16,10 +16,6 @@ BlankNode.prototype.equals = function (other) {
   return other.termType === this.termType && other.value === this.value
 }
 
-BlankNode.prototype.toCanonical = function () {
-  return '_:' + this.value // TODO: escape special chars
-}
-
 BlankNode.prototype.termType = 'BlankNode'
 
 BlankNode.nextId = 0
@@ -58,12 +54,12 @@ DataFactory.literal = function (value, languageOrDatatype) {
   }
 }
 
-DataFactory.variable = function (value) {
-  return new Variable(value)
-}
-
 DataFactory.defaultGraph = function () {
   return DataFactory.defaultGraphInstance
+}
+
+DataFactory.variable = function (value) {
+  return new Variable(value)
 }
 
 DataFactory.triple = function (subject, predicate, object) {
@@ -87,10 +83,6 @@ function DefaultGraph () {
 
 DefaultGraph.prototype.equals = function (other) {
   return other.termType === this.termType && other.value === this.value
-}
-
-DefaultGraph.prototype.toCanonical = function () {
-  return ''
 }
 
 DefaultGraph.prototype.termType = 'DefaultGraph'
@@ -118,12 +110,6 @@ Literal.prototype.equals = function (other) {
     other.language === this.language && other.datatype.equals(this.datatype)
 }
 
-Literal.prototype.toCanonical = function () {
-  return '"' + this.value + '"'
-  // TODO: escape special chars
-  // TODO: language + datatype support
-}
-
 Literal.prototype.termType = 'Literal'
 Literal.prototype.language = ''
 Literal.prototype.datatype = new NamedNode('http://www.w3.org/2001/XMLSchema#string')
@@ -141,10 +127,6 @@ function NamedNode (iri) {
 
 NamedNode.prototype.equals = function (other) {
   return other.termType === this.termType && other.value === this.value
-}
-
-NamedNode.prototype.toCanonical = function () {
-  return '<' + this.value + '>' // TODO: escape special chars
 }
 
 NamedNode.prototype.termType = 'NamedNode'
@@ -171,13 +153,6 @@ Quad.prototype.equals = function (other) {
     other.object.equals(this.object) && other.graph.equals(this.graph)
 }
 
-Quad.prototype.toCanonical = function () {
-  var graphString = this.graph.toCanonical()
-
-  return this.subject.toCanonical() + ' ' + this.predicate.toCanonical() + ' ' + this.object.toCanonical() +
-    (graphString ? (' ' + graphString) : '') + ' .'
-}
-
 Quad.prototype.graph = new DefaultGraph()
 
 module.exports = Quad
@@ -191,10 +166,6 @@ function Variable (name) {
 
 Variable.prototype.equals = function (other) {
   return other.termType === this.termType && other.value === this.value
-}
-
-Variable.prototype.toCanonical = function () {
-  return '?' + this.value // TODO: escape special chars
 }
 
 Variable.prototype.termType = 'Variable'
