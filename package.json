@@ -34,6 +34,5 @@
     "eslint": "^3.19.0",
     "mocha": "^3.2.0",
     "standard": "^10.0.2"
-  },
-  "readmeFilename": "README.md"
+  }
 }
