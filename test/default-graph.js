@@ -42,13 +42,6 @@ function runTests (DataFactory) {
 
         assert.equal(term.equals(mock), false)
       })
-
-      it('should return false if value is not equal', function () {
-        var term = DataFactory.defaultGraph()
-        var mock = {termType: 'DefaultGraph', value: '1'}
-
-        assert.equal(term.equals(mock), false)
-      })
     })
   })
 }

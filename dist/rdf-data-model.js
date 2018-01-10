@@ -82,7 +82,7 @@ function DefaultGraph () {
 }
 
 DefaultGraph.prototype.equals = function (other) {
-  return other.termType === this.termType && other.value === this.value
+  return other.termType === this.termType
 }
 
 DefaultGraph.prototype.termType = 'DefaultGraph'
