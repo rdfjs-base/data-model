@@ -60,6 +60,13 @@ function runTests (DataFactory) {
 
         assert.equal(term.equals(mock), false)
       })
+
+      it('should return false if value is falsy', function () {
+        var id = 'b1'
+        var term = DataFactory.blankNode(id)
+
+        assert.equal(term.equals(null), false)
+      })
     })
   })
 }
