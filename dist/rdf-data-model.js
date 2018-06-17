@@ -13,7 +13,7 @@ function BlankNode (id) {
 }
 
 BlankNode.prototype.equals = function (other) {
-  return other.termType === this.termType && other.value === this.value
+  return !!other && other.termType === this.termType && other.value === this.value
 }
 
 BlankNode.prototype.termType = 'BlankNode'
@@ -82,7 +82,7 @@ function DefaultGraph () {
 }
 
 DefaultGraph.prototype.equals = function (other) {
-  return other.termType === this.termType && other.value === this.value
+  return !!other && other.termType === this.termType
 }
 
 DefaultGraph.prototype.termType = 'DefaultGraph'
@@ -106,7 +106,7 @@ function Literal (value, language, datatype) {
 }
 
 Literal.prototype.equals = function (other) {
-  return other.termType === this.termType && other.value === this.value &&
+  return !!other && other.termType === this.termType && other.value === this.value &&
     other.language === this.language && other.datatype.equals(this.datatype)
 }
 
@@ -126,7 +126,7 @@ function NamedNode (iri) {
 }
 
 NamedNode.prototype.equals = function (other) {
-  return other.termType === this.termType && other.value === this.value
+  return !!other && other.termType === this.termType && other.value === this.value
 }
 
 NamedNode.prototype.termType = 'NamedNode'
@@ -149,7 +149,7 @@ function Quad (subject, predicate, object, graph) {
 }
 
 Quad.prototype.equals = function (other) {
-  return other.subject.equals(this.subject) && other.predicate.equals(this.predicate) &&
+  return !!other && other.subject.equals(this.subject) && other.predicate.equals(this.predicate) &&
     other.object.equals(this.object) && other.graph.equals(this.graph)
 }
 
@@ -165,7 +165,7 @@ function Variable (name) {
 }
 
 Variable.prototype.equals = function (other) {
-  return other.termType === this.termType && other.value === this.value
+  return !!other && other.termType === this.termType && other.value === this.value
 }
 
 Variable.prototype.termType = 'Variable'
