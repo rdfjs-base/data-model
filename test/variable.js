@@ -59,6 +59,13 @@ function runTests (DataFactory) {
 
         assert.equal(term.equals(mock), false)
       })
+
+      it('should return false if value is falsy', function () {
+        var name = 'v'
+        var term = DataFactory.variable(name)
+
+        assert.equal(term.equals(null), false)
+      })
     })
   })
 }
