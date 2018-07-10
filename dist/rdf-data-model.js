@@ -40,12 +40,12 @@ DataFactory.literal = function (value, languageOrDatatype) {
   if (typeof languageOrDatatype === 'string') {
     if (languageOrDatatype.indexOf(':') === -1) {
       return new Literal(value, languageOrDatatype)
-    } else {
-      return new Literal(value, null, DataFactory.namedNode(languageOrDatatype))
     }
-  } else {
-    return new Literal(value, null, languageOrDatatype)
+
+    return new Literal(value, null, DataFactory.namedNode(languageOrDatatype))
   }
+
+  return new Literal(value, null, languageOrDatatype)
 }
 
 DataFactory.defaultGraph = function () {
@@ -86,6 +86,8 @@ var NamedNode = require('./named-node')
 
 function Literal (value, language, datatype) {
   this.value = value
+  this.datatype = Literal.stringDatatype
+  this.language = ''
 
   if (language) {
     this.language = language
@@ -101,10 +103,8 @@ Literal.prototype.equals = function (other) {
 }
 
 Literal.prototype.termType = 'Literal'
-Literal.prototype.language = ''
-Literal.prototype.datatype = new NamedNode('http://www.w3.org/2001/XMLSchema#string')
-
 Literal.langStringDatatype = new NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
+Literal.stringDatatype = new NamedNode('http://www.w3.org/2001/XMLSchema#string')
 
 module.exports = Literal
 
@@ -131,6 +131,8 @@ function Quad (subject, predicate, object, graph) {
 
   if (graph) {
     this.graph = graph
+  } else {
+    this.graph = new DefaultGraph()
   }
 }
 
@@ -138,8 +140,6 @@ Quad.prototype.equals = function (other) {
   return !!other && other.subject.equals(this.subject) && other.predicate.equals(this.predicate) &&
     other.object.equals(this.object) && other.graph.equals(this.graph)
 }
-
-Quad.prototype.graph = new DefaultGraph()
 
 module.exports = Quad
 
