@@ -40,12 +40,12 @@ DataFactory.literal = function (value, languageOrDatatype) {
   if (typeof languageOrDatatype === 'string') {
     if (languageOrDatatype.indexOf(':') === -1) {
       return new Literal(value, languageOrDatatype)
-    } else {
-      return new Literal(value, null, DataFactory.namedNode(languageOrDatatype))
     }
-  } else {
-    return new Literal(value, null, languageOrDatatype)
+
+    return new Literal(value, null, DataFactory.namedNode(languageOrDatatype))
   }
+
+  return new Literal(value, null, languageOrDatatype)
 }
 
 DataFactory.defaultGraph = function () {
