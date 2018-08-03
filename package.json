@@ -12,6 +12,7 @@
   "bin": {
     "rdfjs-data-model-test": "./bin/test.js"
   },
+  "types": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "git://github.com/rdfjs/data-model.git"
