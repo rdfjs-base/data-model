@@ -28,7 +28,9 @@
     "url": "https://github.com/rdfjs/data-model/issues"
   },
   "homepage": "https://github.com/rdfjs/data-model",
-  "dependencies": {},
+  "dependencies": {
+    "@types/rdf-js": "^2.0.1"
+  },
   "devDependencies": {
     "browserify": "^16.2.2",
     "mocha": "^5.2.0",
