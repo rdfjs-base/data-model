@@ -150,14 +150,6 @@ function runTests (DataFactory) {
 
         assert.equal(term.equals(mock), false)
       })
-
-      it('should return false if value is falsy', function () {
-        var string = 'example'
-        var language = 'en'
-        var term = DataFactory.literal(string, language)
-
-        assert.equal(term.equals(null), false)
-      })
     })
   })
 }

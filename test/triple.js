@@ -86,15 +86,6 @@ function runTests (DataFactory) {
 
         assert.equal(triple.equals(quad), false)
       })
-
-      it('should return false if value is falsy', function () {
-        var subject = DataFactory.namedNode('http://example.org/subject')
-        var predicate = DataFactory.namedNode('http://example.org/predicate')
-        var object = DataFactory.namedNode('http://example.org/object')
-        var triple = DataFactory.triple(subject, predicate, object)
-
-        assert.equal(triple.equals(null), false)
-      })
     })
   })
 }

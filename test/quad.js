@@ -92,16 +92,6 @@ function runTests (DataFactory) {
 
         assert.equal(quad1.equals(quad2), false)
       })
-
-      it('should return false if value is falsy', function () {
-        var subject = DataFactory.namedNode('http://example.org/subject')
-        var predicate = DataFactory.namedNode('http://example.org/predicate')
-        var object = DataFactory.namedNode('http://example.org/object')
-        var graph = DataFactory.namedNode('http://example.org/graph')
-        var quad = DataFactory.quad(subject, predicate, object, graph)
-
-        assert.equal(quad.equals(null), false)
-      })
     })
   })
 }
