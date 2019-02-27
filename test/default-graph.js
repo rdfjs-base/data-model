@@ -2,7 +2,7 @@
 
 /* global describe, it */
 
-var assert = require('assert')
+import assert from 'assert'
 
 function runTests (DataFactory) {
   describe('.defaultGraph', function () {
@@ -52,4 +52,4 @@ function runTests (DataFactory) {
   })
 }
 
-module.exports = runTests
+export default runTests

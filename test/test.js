@@ -1,3 +1,4 @@
-var rdf = require('..')
+import DataFactory from '../index.js'
+import runTests from './index.js'
 
-require('.')(rdf)
+runTests(DataFactory)
