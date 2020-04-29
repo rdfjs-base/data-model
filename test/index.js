@@ -1,20 +1,18 @@
 'use strict'
-import namedNodeTest from './named-node'
-import blankNodeTest from './blank-node'
-import literalTest from './literal'
-import defaultGraphTest from './default-graph'
-import variableTest from './variable'
-import tripleTest from './triple'
-import quadTest from './quad'
+import { namedNodeTests } from './named-node'
+import { blankNodeTests } from './blank-node'
+import { literalTests } from './literal'
+import { defaultGraphTests } from './default-graph'
+import { variableTests } from './variable'
+import { tripleTests } from './triple'
+import { quadTests } from './quad'
 
-function runTests (DataFactory) {
-  namedNodeTest(DataFactory)
-  blankNodeTest(DataFactory)
-  literalTest(DataFactory)
-  defaultGraphTest(DataFactory)
-  variableTest(DataFactory)
-  tripleTest(DataFactory)
-  quadTest(DataFactory)
+export function runTests (DataFactory) {
+  namedNodeTests(DataFactory)
+  blankNodeTests(DataFactory)
+  literalTests(DataFactory)
+  defaultGraphTests(DataFactory)
+  variableTests(DataFactory)
+  tripleTests(DataFactory)
+  quadTests(DataFactory)
 }
-
-export default runTests

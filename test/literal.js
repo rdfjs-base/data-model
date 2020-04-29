@@ -4,7 +4,7 @@
 
 import assert from 'assert'
 
-function runTests (DataFactory) {
+export function literalTests (DataFactory) {
   describe('.literal', function () {
     it('should be a static method', function () {
       assert.equal(typeof DataFactory.literal, 'function')
@@ -161,5 +161,3 @@ function runTests (DataFactory) {
     })
   })
 }
-
-export default runTests

@@ -4,7 +4,7 @@
 
 import assert from 'assert'
 
-function runTests (DataFactory) {
+export function tripleTests (DataFactory) {
   describe('.triple', function () {
     it('should be a static method', function () {
       assert.equal(typeof DataFactory.triple, 'function')
@@ -98,5 +98,3 @@ function runTests (DataFactory) {
     })
   })
 }
-
-export default runTests

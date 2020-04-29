@@ -4,7 +4,7 @@
 
 import assert from 'assert'
 
-function runTests (DataFactory) {
+export function variableTests (DataFactory) {
   // support for Variable is optional
   if (!DataFactory.variable) {
     return
@@ -69,5 +69,3 @@ function runTests (DataFactory) {
     })
   })
 }
-
-export default runTests
