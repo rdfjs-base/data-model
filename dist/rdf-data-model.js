@@ -4,15 +4,19 @@ var DataFactory = require('./lib/data-factory')
 module.exports = DataFactory
 
 },{"./lib/data-factory":3}],2:[function(require,module,exports){
-function BlankNode (id) {
-  this.value = id || ('b' + (++BlankNode.nextId))
-}
+class BlankNode {
+  constructor (id) {
+    this.value = id || ('b' + (++BlankNode.nextId))
+  }
 
-BlankNode.prototype.equals = function (other) {
-  return !!other && other.termType === this.termType && other.value === this.value
-}
+  equals (other) {
+    return !!other && other.termType === this.termType && other.value === this.value
+  }
 
-BlankNode.prototype.termType = 'BlankNode'
+  get termType () {
+    return 'BlankNode'
+  }
+}
 
 BlankNode.nextId = 0
 
@@ -26,138 +30,169 @@ var NamedNode = require('./named-node')
 var Quad = require('./quad')
 var Variable = require('./variable')
 
-function DataFactory () {}
-
-DataFactory.namedNode = function (value) {
+function namedNode (value) {
   return new NamedNode(value)
 }
 
-DataFactory.blankNode = function (value) {
+const defaultGraphInstance = new DefaultGraph()
+
+function blankNode (value) {
   return new BlankNode(value)
 }
 
-DataFactory.literal = function (value, languageOrDatatype) {
+function literal (value, languageOrDatatype) {
   if (typeof languageOrDatatype === 'string') {
     if (languageOrDatatype.indexOf(':') === -1) {
       return new Literal(value, languageOrDatatype)
     }
 
-    return new Literal(value, null, DataFactory.namedNode(languageOrDatatype))
+    return new Literal(value, null, namedNode(languageOrDatatype))
   }
 
   return new Literal(value, null, languageOrDatatype)
 }
 
-DataFactory.defaultGraph = function () {
-  return DataFactory.defaultGraphInstance
+function defaultGraph () {
+  return defaultGraphInstance
 }
 
-DataFactory.variable = function (value) {
+function variable (value) {
   return new Variable(value)
 }
 
-DataFactory.triple = function (subject, predicate, object) {
-  return DataFactory.quad(subject, predicate, object)
+function quad (subject, predicate, object, graph) {
+  return new Quad(subject, predicate, object, graph || defaultGraphInstance)
 }
 
-DataFactory.quad = function (subject, predicate, object, graph) {
-  return new Quad(subject, predicate, object, graph || DataFactory.defaultGraphInstance)
+function triple (subject, predicate, object) {
+  return quad(subject, predicate, object)
 }
 
-DataFactory.defaultGraphInstance = new DefaultGraph()
-
-module.exports = DataFactory
+module.exports = {
+  namedNode,
+  blankNode,
+  literal,
+  defaultGraph,
+  defaultGraphInstance,
+  variable,
+  quad,
+  triple
+}
 
 },{"./blank-node":2,"./default-graph":4,"./literal":5,"./named-node":6,"./quad":7,"./variable":8}],4:[function(require,module,exports){
-function DefaultGraph () {
-  this.value = ''
-}
+class DefaultGraph {
+  get value () {
+    return ''
+  }
 
-DefaultGraph.prototype.equals = function (other) {
-  return !!other && other.termType === this.termType
-}
+  equals (other) {
+    return !!other && other.termType === this.termType
+  }
 
-DefaultGraph.prototype.termType = 'DefaultGraph'
+  get termType () {
+    return 'DefaultGraph'
+  }
+}
 
 module.exports = DefaultGraph
 
 },{}],5:[function(require,module,exports){
 var NamedNode = require('./named-node')
 
-function Literal (value, language, datatype) {
-  this.value = value
-  this.datatype = Literal.stringDatatype
-  this.language = ''
+class Literal {
+  constructor (value, language, datatype) {
+    this.value = value
+    this.datatype = Literal.stringDatatype
+    this.language = ''
 
-  if (language) {
-    this.language = language
-    this.datatype = Literal.langStringDatatype
-  } else if (datatype) {
-    this.datatype = datatype
+    if (language) {
+      this.language = language
+      this.datatype = Literal.langStringDatatype
+    } else if (datatype) {
+      this.datatype = datatype
+    }
+  }
+
+  equals (other) {
+    return !!other && other.termType === this.termType && other.value === this.value &&
+      other.language === this.language && other.datatype.equals(this.datatype)
+  }
+
+  get termType () {
+    return 'Literal'
   }
 }
 
-Literal.prototype.equals = function (other) {
-  return !!other && other.termType === this.termType && other.value === this.value &&
-    other.language === this.language && other.datatype.equals(this.datatype)
-}
-
-Literal.prototype.termType = 'Literal'
 Literal.langStringDatatype = new NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
 Literal.stringDatatype = new NamedNode('http://www.w3.org/2001/XMLSchema#string')
 
 module.exports = Literal
 
 },{"./named-node":6}],6:[function(require,module,exports){
-function NamedNode (iri) {
-  this.value = iri
-}
+class NamedNode {
+  constructor (iri) {
+    this.value = iri
+  }
 
-NamedNode.prototype.equals = function (other) {
-  return !!other && other.termType === this.termType && other.value === this.value
-}
+  equals (other) {
+    return !!other && other.termType === this.termType && other.value === this.value
+  }
 
-NamedNode.prototype.termType = 'NamedNode'
+  get termType () {
+    return 'NamedNode'
+  }
+}
 
 module.exports = NamedNode
 
 },{}],7:[function(require,module,exports){
 var DefaultGraph = require('./default-graph')
 
-function Quad (subject, predicate, object, graph) {
-  this.subject = subject
-  this.predicate = predicate
-  this.object = object
+class Quad {
+  constructor (subject, predicate, object, graph) {
+    this.subject = subject
+    this.predicate = predicate
+    this.object = object
 
-  if (graph) {
-    this.graph = graph
-  } else {
-    this.graph = new DefaultGraph()
+    if (graph) {
+      this.graph = graph
+    } else {
+      this.graph = new DefaultGraph()
+    }
+  }
+
+  static get value() {
+    return ''
+  }
+
+  static get termType() {
+    return 'Quad'
+  }
+
+  equals (other) {
+    // `|| !other.termType` is for backwards-compatibility with old factories without RDF* support.
+    return !!other && (other.termType === 'Quad' || !other.termType) &&
+      other.subject.equals(this.subject) && other.predicate.equals(this.predicate) &&
+      other.object.equals(this.object) && other.graph.equals(this.graph)
   }
 }
-
-Quad.prototype.equals = function (other) {
-  // `|| !other.termType` is for backwards-compatibility with old factories without RDF* support.
-  return !!other && (other.termType === 'Quad' || !other.termType) &&
-    other.subject.equals(this.subject) && other.predicate.equals(this.predicate) &&
-    other.object.equals(this.object) && other.graph.equals(this.graph)
-}
-
-Quad.prototype.termType = 'Quad'
-Quad.prototype.value = ''
 
 module.exports = Quad
 
 },{"./default-graph":4}],8:[function(require,module,exports){
-function Variable (name) {
-  this.value = name
-}
+class Variable {
+  constructor (name) {
+    this.value = name
+  }
 
-Variable.prototype.equals = function (other) {
-  return !!other && other.termType === this.termType && other.value === this.value
-}
+  equals (other) {
+    return !!other && other.termType === this.termType && other.value === this.value
+  }
 
-Variable.prototype.termType = 'Variable'
+  get termType () {
+    return 'Variable'
+  }
+}
 
 module.exports = Variable
 
