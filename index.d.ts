@@ -1,7 +1,7 @@
 import * as RDF from "rdf-js";
 
 export const defaultGraphInstance: RDF.DefaultGraph;
-export function namedNode(value: string): RDF.NamedNode;
+export function namedNode<Iri extends string = string>(value: Iri): RDF.NamedNode<Iri>;
 export function blankNode(value?: string): RDF.BlankNode;
 export function literal(value: string, languageOrDatatype?: string | RDF.NamedNode): RDF.Literal;
 export function variable(value: string): RDF.Variable;

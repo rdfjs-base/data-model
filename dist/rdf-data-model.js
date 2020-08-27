@@ -137,9 +137,14 @@ function Quad (subject, predicate, object, graph) {
 }
 
 Quad.prototype.equals = function (other) {
-  return !!other && other.subject.equals(this.subject) && other.predicate.equals(this.predicate) &&
+  // `|| !other.termType` is for backwards-compatibility with old factories without RDF* support.
+  return !!other && (other.termType === 'Quad' || !other.termType) &&
+    other.subject.equals(this.subject) && other.predicate.equals(this.predicate) &&
     other.object.equals(this.object) && other.graph.equals(this.graph)
 }
+
+Quad.prototype.termType = 'Quad'
+Quad.prototype.value = ''
 
 module.exports = Quad
 
