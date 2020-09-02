@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/rdfjs-base/data-model",
   "dependencies": {
-    "@types/rdf-js": "^2.0.1"
+    "@types/rdf-js": "*"
   },
   "devDependencies": {
     "browserify": "^16.2.2",
