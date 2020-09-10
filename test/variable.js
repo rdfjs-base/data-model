@@ -31,7 +31,7 @@ function runTests (DataFactory) {
 
     describe('.equals', function () {
       it('should be a method', function () {
-        var term = DataFactory.variable()
+        var term = DataFactory.variable('v')
 
         assert.equal(typeof term.equals, 'function')
       })
