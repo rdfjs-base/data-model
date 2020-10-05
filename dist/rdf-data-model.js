@@ -12,12 +12,9 @@ class BlankNode {
   equals (other) {
     return !!other && other.termType === this.termType && other.value === this.value
   }
-
-  get termType () {
-    return 'BlankNode'
-  }
 }
 
+BlankNode.prototype.termType = 'BlankNode'
 BlankNode.nextId = 0
 
 module.exports = BlankNode
@@ -81,18 +78,13 @@ module.exports = {
 
 },{"./blank-node":2,"./default-graph":4,"./literal":5,"./named-node":6,"./quad":7,"./variable":8}],4:[function(require,module,exports){
 class DefaultGraph {
-  get value () {
-    return ''
-  }
-
   equals (other) {
     return !!other && other.termType === this.termType
   }
-
-  get termType () {
-    return 'DefaultGraph'
-  }
 }
+
+DefaultGraph.prototype.termType = 'DefaultGraph'
+DefaultGraph.prototype.value = ''
 
 module.exports = DefaultGraph
 
@@ -117,12 +109,9 @@ class Literal {
     return !!other && other.termType === this.termType && other.value === this.value &&
       other.language === this.language && other.datatype.equals(this.datatype)
   }
-
-  get termType () {
-    return 'Literal'
-  }
 }
 
+Literal.prototype.termType = 'Literal'
 Literal.langStringDatatype = new NamedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
 Literal.stringDatatype = new NamedNode('http://www.w3.org/2001/XMLSchema#string')
 
@@ -137,11 +126,9 @@ class NamedNode {
   equals (other) {
     return !!other && other.termType === this.termType && other.value === this.value
   }
-
-  get termType () {
-    return 'NamedNode'
-  }
 }
+
+NamedNode.prototype.termType = 'NamedNode'
 
 module.exports = NamedNode
 
@@ -161,14 +148,6 @@ class Quad {
     }
   }
 
-  static get value() {
-    return ''
-  }
-
-  static get termType() {
-    return 'Quad'
-  }
-
   equals (other) {
     // `|| !other.termType` is for backwards-compatibility with old factories without RDF* support.
     return !!other && (other.termType === 'Quad' || !other.termType) &&
@@ -176,6 +155,9 @@ class Quad {
       other.object.equals(this.object) && other.graph.equals(this.graph)
   }
 }
+
+Quad.prototype.termType = 'Quad'
+Quad.prototype.value = ''
 
 module.exports = Quad
 
@@ -188,11 +170,9 @@ class Variable {
   equals (other) {
     return !!other && other.termType === this.termType && other.value === this.value
   }
-
-  get termType () {
-    return 'Variable'
-  }
 }
+
+Variable.prototype.termType = 'Variable'
 
 module.exports = Variable
 
