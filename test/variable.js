@@ -28,7 +28,8 @@ function runTests (DataFactory) {
 
     describe('.equals', function () {
       it('should be a method', function () {
-        const term = DataFactory.variable()
+        const name = 'v'
+        const term = DataFactory.variable(name)
 
         strictEqual(typeof term.equals, 'function')
       })
