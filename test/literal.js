@@ -54,17 +54,7 @@ function runTests (DataFactory) {
 
     it('should create an object with a datatype property that contains a NamedNode with the given IRI', function () {
       const string = 'example'
-      const datatypeIRI = 'http://example.org'
-      const datatypeNode = DataFactory.namedNode(datatypeIRI)
-      const term = DataFactory.literal(string, datatypeNode)
-
-      strictEqual(term.datatype.termType, 'NamedNode')
-      strictEqual(term.datatype.value, datatypeIRI)
-    })
-
-    it('should create an object with a datatype property that contains the given NamedNode', function () {
-      const string = 'example'
-      const datatype = { termType: 'NamedNode', value: 'http://example.org' }
+      const datatype = DataFactory.namedNode('http://example.org')
       const term = DataFactory.literal(string, datatype)
 
       strictEqual(term.datatype.termType, 'NamedNode')
