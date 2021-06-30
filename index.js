@@ -1,3 +1,3 @@
-const DataFactory = require('./lib/data-factory')
+const DataFactory = require('./lib/DataFactory.js')
 
 module.exports = DataFactory
