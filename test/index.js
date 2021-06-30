@@ -1,13 +1,13 @@
 function runTests (rdf) {
-  require('./named-node')(rdf)
-  require('./blank-node')(rdf)
-  require('./fromQuad.test')(rdf)
-  require('./fromTerm.test')(rdf)
-  require('./literal')(rdf)
-  require('./default-graph')(rdf)
-  require('./variable')(rdf)
-  require('./triple')(rdf)
-  require('./quad')(rdf)
+  require('./named-node.test.js')(rdf)
+  require('./blank-node.test.js')(rdf)
+  require('./fromQuad.test.js')(rdf)
+  require('./fromTerm.test.js')(rdf)
+  require('./literal.test.js')(rdf)
+  require('./default-graph.test.js')(rdf)
+  require('./variable.test.js')(rdf)
+  require('./triple.test.js')(rdf)
+  require('./quad.test.js')(rdf)
 }
 
 if (global.rdf) {
