@@ -4,10 +4,8 @@
   "description": "A basic implementation of the RDFJS Data Model",
   "main": "index.js",
   "scripts": {
-    "build-dist": "browserify index.js --standalone rdf --outfile dist/rdf-data-model.js",
-    "lint": "standard *.js bin/*.js lib/*.js test/*.js",
-    "prepublish": "npm run build-dist",
-    "test": "npm run lint && mocha"
+    "prepublish": "browserify index.js --standalone rdf --outfile dist/rdf-data-model.js",
+    "test": "stricter-standard *.js bin/*.js lib/*.js test/*.js && c8 --reporter=lcov --reporter=text mocha"
   },
   "bin": {
     "rdfjs-data-model-test": "./bin/test.js"
@@ -32,11 +30,10 @@
     "@types/rdf-js": "*"
   },
   "devDependencies": {
-    "browserify": "^16.2.2",
-    "mocha": "^5.2.0",
-    "standard": "^11.0.1"
-  },
-  "engines": {
-    "node": ">=6"
+    "browserify": "^17.0.0",
+    "c8": "^7.7.3",
+    "codecov": "^3.8.2",
+    "mocha": "^9.0.1",
+    "stricter-standard": "^0.2.0"
   }
 }
