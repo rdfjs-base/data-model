@@ -16,6 +16,14 @@ function runTests (DataFactory) {
       notStrictEqual(term, original)
     })
 
+    it('should create a clone of the given DefaultGraph', () => {
+      const original = DataFactory.defaultGraph()
+
+      const term = DataFactory.fromTerm(original)
+
+      strictEqual(term.equals(original), true)
+    })
+
     it('should create a clone of the given Literal', () => {
       const original = DataFactory.literal('example')
 
