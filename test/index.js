@@ -1,5 +1,3 @@
-'use strict'
-
 function runTests (rdf) {
   require('./named-node')(rdf)
   require('./blank-node')(rdf)

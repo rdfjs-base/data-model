@@ -1,3 +1,3 @@
-var rdf = require('..')
+const rdf = require('..')
 
 require('.')(rdf)
