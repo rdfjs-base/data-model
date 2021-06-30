@@ -1,6 +1,6 @@
 {
   "name": "@rdfjs/data-model",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A basic implementation of the RDFJS Data Model",
   "main": "index.js",
   "scripts": {
