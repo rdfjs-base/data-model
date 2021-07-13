@@ -5,6 +5,9 @@ const rdf = require('..')
 describe('@rdfjs/data-model', () => {
   require('.')(rdf)
 
+  // .triple is a legacy method and not required according to the spec
+  require('./triple.test.js')(rdf)
+
   it('should allow destructuring assignment of factory methods', () => {
     const factory = { ...rdf }
 
