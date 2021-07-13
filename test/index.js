@@ -6,7 +6,6 @@ function runTests (rdf) {
   require('./literal.test.js')(rdf)
   require('./default-graph.test.js')(rdf)
   require('./variable.test.js')(rdf)
-  require('./triple.test.js')(rdf)
   require('./quad.test.js')(rdf)
 }
 
