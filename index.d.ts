@@ -1,4 +1,4 @@
-import * as RDF from "rdf-js";
+import * as RDF from "@rdfjs/types";
 
 export const defaultGraphInstance: RDF.DefaultGraph;
 export function namedNode<Iri extends string = string>(value: Iri): RDF.NamedNode<Iri>;
