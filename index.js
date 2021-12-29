@@ -1,3 +1,5 @@
-const DataFactory = require('./lib/DataFactory.js')
+import Factory from './Factory.js'
 
-module.exports = DataFactory
+const factory = new Factory()
+
+export default factory

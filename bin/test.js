@@ -1,14 +1,21 @@
 #!/usr/bin/env node
 
-const path = require('path')
-const Mocha = require('mocha')
+import { resolve } from 'path'
+import Mocha from 'mocha'
 
-const mocha = new Mocha()
+async function main () {
+  const tests = new Mocha()
 
-global.rdf = require(path.resolve(process.argv[2] || ''))
+  global.rdf = (await import(resolve(process.argv[2] || ''))).default
 
-mocha.addFile(path.join(__dirname, '../test/index.js')).run(failures => {
-  process.on('exit', () => {
-    process.exit(failures)
+  tests.files.push((new URL('../test/index.js', import.meta.url)).pathname)
+  await tests.loadFilesAsync()
+
+  tests.run(failures => {
+    process.on('exit', () => {
+      process.exit(failures)
+    })
   })
-})
+}
+
+main()
