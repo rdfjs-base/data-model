@@ -1,51 +1,52 @@
-const { notStrictEqual, strictEqual, throws } = require('assert')
-const { describe, it } = require('mocha')
+import { notStrictEqual, strictEqual, throws } from 'assert'
 
-function runTests (DataFactory) {
-  describe('.fromTerm', function () {
-    it('should be a static method', function () {
-      strictEqual(typeof DataFactory.fromTerm, 'function')
+function runTests ({ factory, mocha }) {
+  const { describe, it } = mocha
+
+  describe('.fromTerm', () => {
+    it('should be a static method', () => {
+      strictEqual(typeof factory.fromTerm, 'function')
     })
 
     it('should create a clone of the given BlankNode', () => {
-      const original = DataFactory.blankNode()
+      const original = factory.blankNode()
 
-      const term = DataFactory.fromTerm(original)
+      const term = factory.fromTerm(original)
 
       strictEqual(term.equals(original), true)
       notStrictEqual(term, original)
     })
 
     it('should create a clone of the given DefaultGraph', () => {
-      const original = DataFactory.defaultGraph()
+      const original = factory.defaultGraph()
 
-      const term = DataFactory.fromTerm(original)
+      const term = factory.fromTerm(original)
 
       strictEqual(term.equals(original), true)
     })
 
     it('should create a clone of the given Literal', () => {
-      const original = DataFactory.literal('example')
+      const original = factory.literal('example')
 
-      const term = DataFactory.fromTerm(original)
+      const term = factory.fromTerm(original)
 
       strictEqual(term.equals(original), true)
       notStrictEqual(term, original)
     })
 
     it('should create a clone of the given Literal with language', () => {
-      const original = DataFactory.literal('example', 'en')
+      const original = factory.literal('example', 'en')
 
-      const term = DataFactory.fromTerm(original)
+      const term = factory.fromTerm(original)
 
       strictEqual(term.equals(original), true)
       notStrictEqual(term, original)
     })
 
     it('should create a clone of the given Literal with datatype', () => {
-      const original = DataFactory.literal('example', DataFactory.namedNode('http://example.org/'))
+      const original = factory.literal('example', factory.namedNode('http://example.org/'))
 
-      const term = DataFactory.fromTerm(original)
+      const term = factory.fromTerm(original)
 
       strictEqual(term.equals(original), true)
       notStrictEqual(term, original)
@@ -53,22 +54,22 @@ function runTests (DataFactory) {
     })
 
     it('should create a clone of the given NamedNode', () => {
-      const original = DataFactory.namedNode('http://example.org/')
+      const original = factory.namedNode('http://example.org/')
 
-      const term = DataFactory.fromTerm(original)
+      const term = factory.fromTerm(original)
 
       strictEqual(term.equals(original), true)
       notStrictEqual(term, original)
     })
 
     it('should create a clone of the given Quad', () => {
-      const subject = DataFactory.blankNode()
-      const predicate = DataFactory.namedNode('http://example.org/predicate')
-      const object = DataFactory.literal('example')
-      const graph = DataFactory.namedNode('http://example.org/graph')
-      const original = DataFactory.quad(subject, predicate, object, graph)
+      const subject = factory.blankNode()
+      const predicate = factory.namedNode('http://example.org/predicate')
+      const object = factory.literal('example')
+      const graph = factory.namedNode('http://example.org/graph')
+      const original = factory.quad(subject, predicate, object, graph)
 
-      const term = DataFactory.fromTerm(original)
+      const term = factory.fromTerm(original)
 
       strictEqual(term.equals(original), true)
       notStrictEqual(term, original)
@@ -79,16 +80,16 @@ function runTests (DataFactory) {
     })
 
     it('should create a clone of the given Variable', () => {
-      const original = DataFactory.variable('v')
+      const original = factory.variable('v')
 
-      const term = DataFactory.fromTerm(original)
+      const term = factory.fromTerm(original)
 
       strictEqual(term.equals(original), true)
       notStrictEqual(term, original)
     })
 
     it('should return null if null is given', () => {
-      const term = DataFactory.fromTerm(null)
+      const term = factory.fromTerm(null)
 
       strictEqual(term, null)
     })
@@ -97,10 +98,10 @@ function runTests (DataFactory) {
       const original = {}
 
       throws(() => {
-        DataFactory.fromTerm(original)
+        factory.fromTerm(original)
       })
     })
   })
 }
 
-module.exports = runTests
+export default runTests

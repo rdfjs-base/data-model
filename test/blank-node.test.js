@@ -1,66 +1,67 @@
-const { strictEqual, notStrictEqual } = require('assert')
-const { describe, it } = require('mocha')
+import { strictEqual, notStrictEqual } from 'assert'
 
-function runTests (DataFactory) {
-  describe('.blankNode', function () {
-    it('should be a static method', function () {
-      strictEqual(typeof DataFactory.blankNode, 'function')
+function runTests ({ factory, mocha }) {
+  const { describe, it } = mocha
+
+  describe('.blankNode', () => {
+    it('should be a static method', () => {
+      strictEqual(typeof factory.blankNode, 'function')
     })
 
-    it('should create an object with a termType property that contains the value "BlankNode"', function () {
-      const term = DataFactory.blankNode()
+    it('should create an object with a termType property that contains the value "BlankNode"', () => {
+      const term = factory.blankNode()
 
       strictEqual(term.termType, 'BlankNode')
     })
 
-    it('should create an object with a value property that contains a unique identifier', function () {
-      const term1 = DataFactory.blankNode()
-      const term2 = DataFactory.blankNode()
+    it('should create an object with a value property that contains a unique identifier', () => {
+      const term1 = factory.blankNode()
+      const term2 = factory.blankNode()
 
       notStrictEqual(term1.value, term2.value)
     })
 
-    it('should create an object with a value property that contains the given identifier', function () {
+    it('should create an object with a value property that contains the given identifier', () => {
       const id = 'b1'
-      const term = DataFactory.blankNode(id)
+      const term = factory.blankNode(id)
 
       strictEqual(term.value, id)
     })
 
-    describe('.equals', function () {
-      it('should be a method', function () {
-        const term = DataFactory.blankNode()
+    describe('.equals', () => {
+      it('should be a method', () => {
+        const term = factory.blankNode()
 
         strictEqual(typeof term.equals, 'function')
       })
 
-      it('should return true if termType and value are equal', function () {
+      it('should return true if termType and value are equal', () => {
         const id = 'b1'
-        const term = DataFactory.blankNode(id)
+        const term = factory.blankNode(id)
         const mock = { termType: 'BlankNode', value: id }
 
         strictEqual(term.equals(mock), true)
       })
 
-      it('should return false if termType is not equal', function () {
+      it('should return false if termType is not equal', () => {
         const id = 'b1'
-        const term = DataFactory.blankNode(id)
+        const term = factory.blankNode(id)
         const mock = { termType: 'NamedNode', value: id }
 
         strictEqual(term.equals(mock), false)
       })
 
-      it('should return false if value is not equal', function () {
+      it('should return false if value is not equal', () => {
         const id = 'b1'
-        const term = DataFactory.blankNode(id)
+        const term = factory.blankNode(id)
         const mock = { termType: 'BlankNode', value: id + '1' }
 
         strictEqual(term.equals(mock), false)
       })
 
-      it('should return false if value is falsy', function () {
+      it('should return false if value is falsy', () => {
         const id = 'b1'
-        const term = DataFactory.blankNode(id)
+        const term = factory.blankNode(id)
 
         strictEqual(term.equals(null), false)
       })
@@ -68,4 +69,4 @@ function runTests (DataFactory) {
   })
 }
 
-module.exports = runTests
+export default runTests

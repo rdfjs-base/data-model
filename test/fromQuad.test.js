@@ -1,20 +1,21 @@
-const { notStrictEqual, strictEqual, throws } = require('assert')
-const { describe, it } = require('mocha')
+import { notStrictEqual, strictEqual, throws } from 'assert'
 
-function runTests (DataFactory) {
-  describe('.fromQuad', function () {
-    it('should be a static method', function () {
-      strictEqual(typeof DataFactory.fromQuad, 'function')
+function runTests ({ factory, mocha }) {
+  const { describe, it } = mocha
+
+  describe('.fromQuad', () => {
+    it('should be a static method', () => {
+      strictEqual(typeof factory.fromQuad, 'function')
     })
 
     it('should create a clone of the given Quad', () => {
-      const subject = DataFactory.blankNode()
-      const predicate = DataFactory.namedNode('http://example.org/predicate')
-      const object = DataFactory.literal('example')
-      const graph = DataFactory.namedNode('http://example.org/graph')
-      const original = DataFactory.quad(subject, predicate, object, graph)
+      const subject = factory.blankNode()
+      const predicate = factory.namedNode('http://example.org/predicate')
+      const object = factory.literal('example')
+      const graph = factory.namedNode('http://example.org/graph')
+      const original = factory.quad(subject, predicate, object, graph)
 
-      const term = DataFactory.fromQuad(original)
+      const term = factory.fromQuad(original)
 
       strictEqual(term.equals(original), true)
       notStrictEqual(term, original)
@@ -25,7 +26,7 @@ function runTests (DataFactory) {
     })
 
     it('should return null if null is given', () => {
-      const term = DataFactory.fromQuad(null)
+      const term = factory.fromQuad(null)
 
       strictEqual(term, null)
     })
@@ -34,10 +35,10 @@ function runTests (DataFactory) {
       const original = {}
 
       throws(() => {
-        DataFactory.fromQuad(original)
+        factory.fromQuad(original)
       })
     })
   })
 }
 
-module.exports = runTests
+export default runTests
