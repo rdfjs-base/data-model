@@ -8,13 +8,14 @@ jobs:
     strategy:
       matrix:
         node:
-          - '14'
-          - '16'
+          - '18'
+          - '20'
+          - '21'
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
       - run: npm install
       - run: npm test
-      - run: npm run coverage
+      - uses: codecov/codecov-action@v3

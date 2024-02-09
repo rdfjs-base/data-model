@@ -1,5 +1,5 @@
 # @rdfjs/data-model
-[![build status](https://img.shields.io/github/workflow/status/rdfjs-base/data-model/Test)](https://github.com/rdfjs-base/data-model/actions/workflows/test.yaml)
+[![build status](https://img.shields.io/github/actions/workflow/status/rdfjs-base/data-model/test.yaml?branch=master)](https://github.com/rdfjs-base/data-model/actions/workflows/test.yaml)
 [![npm version](https://img.shields.io/npm/v/@rdfjs/data-model.svg)](https://www.npmjs.com/package/@rdfjs/data-model)
 
 A basic implementation of the [RDF/JS Data Model](http://rdf.js.org/data-model-spec/).

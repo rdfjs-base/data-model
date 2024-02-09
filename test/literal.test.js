@@ -76,7 +76,7 @@ function runTests ({ factory, mocha }) {
         const mock = {
           termType: 'Literal',
           value: string,
-          language: language,
+          language,
           datatype: factory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
         }
 
@@ -90,7 +90,7 @@ function runTests ({ factory, mocha }) {
         const mock = {
           termType: 'NamedNode',
           value: string,
-          language: language,
+          language,
           datatype: factory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
         }
 
@@ -104,7 +104,7 @@ function runTests ({ factory, mocha }) {
         const mock = {
           termType: 'Literal',
           value: string + '1',
-          language: language,
+          language,
           datatype: factory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
         }
 
@@ -132,7 +132,7 @@ function runTests ({ factory, mocha }) {
         const mock = {
           termType: 'Literal',
           value: string,
-          language: language,
+          language,
           datatype: factory.namedNode('http://example.org')
         }
 
