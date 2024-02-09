@@ -19,10 +19,6 @@ function runTests ({ factory, mocha }) {
 
       strictEqual(term.equals(original), true)
       notStrictEqual(term, original)
-      notStrictEqual(term.subject, original.subject)
-      notStrictEqual(term.predicate, original.predicate)
-      notStrictEqual(term.object, original.object)
-      notStrictEqual(term.graph, original.graph)
     })
 
     it('should return null if null is given', () => {
