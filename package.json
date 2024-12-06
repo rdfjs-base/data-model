@@ -27,7 +27,7 @@
   "homepage": "https://github.com/rdfjs-base/data-model",
   "devDependencies": {
     "c8": "^10.0.0",
-    "mocha": "^10.3.0",
+    "mocha": "^11.0.1",
     "stricter-standard": "^0.3.0"
   }
 }
