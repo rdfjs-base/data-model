@@ -62,6 +62,41 @@ function runTests ({ factory, mocha }) {
       strictEqual(term.datatype.value, datatype.value)
     })
 
+    it('should create an object with a direction property that contains an empty string', () => {
+      const string = 'example'
+      const term = factory.literal(string)
+
+      strictEqual(term.direction, '')
+    })
+
+    it('should create an object with a direction and language property that contains the given strings', () => {
+      const string = 'example'
+      const language = 'en'
+      const direction = 'rtl'
+      const term = factory.literal(string, { direction, language })
+
+      strictEqual(term.direction, direction)
+      strictEqual(term.language, language)
+    })
+
+    it('should create an object with a direction and language property if only the language is given', () => {
+      const string = 'example'
+      const language = 'en'
+      const term = factory.literal(string, { language })
+
+      strictEqual(term.direction, '')
+      strictEqual(term.language, language)
+    })
+
+    it('should create an lang string object if only the language is given', () => {
+      const string = 'example'
+      const language = 'en'
+      const term = factory.literal(string, { language })
+
+      strictEqual(term.datatype.termType, 'NamedNode')
+      strictEqual(term.datatype.value, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
+    })
+
     describe('.equals', () => {
       it('should be a method', () => {
         const term = factory.literal('')
@@ -69,15 +104,17 @@ function runTests ({ factory, mocha }) {
         strictEqual(typeof term.equals, 'function')
       })
 
-      it('should return true if termType, value, language and datatype are equal', () => {
+      it('should return true if termType, value, language, datatype, and direction are equal', () => {
         const string = 'example'
         const language = 'en'
-        const term = factory.literal(string, language)
+        const direction = 'rtl'
+        const term = factory.literal(string, { direction, language })
         const mock = {
           termType: 'Literal',
           value: string,
           language,
-          datatype: factory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
+          datatype: factory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString'),
+          direction
         }
 
         strictEqual(term.equals(mock), true)
@@ -134,6 +171,51 @@ function runTests ({ factory, mocha }) {
           value: string,
           language,
           datatype: factory.namedNode('http://example.org')
+        }
+
+        strictEqual(term.equals(mock), false)
+      })
+
+      it('should return false if direction is not equal', () => {
+        const string = 'example'
+        const language = 'en'
+        const direction = 'rtl'
+        const term = factory.literal(string, { direction, language })
+        const mock = {
+          termType: 'Literal',
+          value: string,
+          language,
+          datatype: factory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString'),
+          direction: 'ltr'
+        }
+
+        strictEqual(term.equals(mock), false)
+      })
+
+      it('should return true if direction of the other term is falsy and the local one is empty', () => {
+        const string = 'example'
+        const language = 'en'
+        const term = factory.literal(string, language)
+        const mock = {
+          termType: 'Literal',
+          value: string,
+          language,
+          datatype: factory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#langString')
+        }
+
+        strictEqual(term.equals(mock), true)
+      })
+
+      it('should return false if direction of the other term is falsy and the local one is a non-empty string', () => {
+        const string = 'example'
+        const language = 'en'
+        const direction = 'rtl'
+        const term = factory.literal(string, { direction, language })
+        const mock = {
+          termType: 'Literal',
+          value: string,
+          language,
+          datatype: factory.namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#dirLangString')
         }
 
         strictEqual(term.equals(mock), false)
