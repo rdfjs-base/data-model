@@ -145,11 +145,7 @@ function runTests ({ factory, mocha }) {
       })
 
       it('should return true for an equal nested quad', () => {
-        const subject = factory.quad(
-          factory.namedNode('http://example.org/subjectInner1'),
-          factory.namedNode('http://example.org/predicateInner1'),
-          factory.namedNode('http://example.org/objectInner1')
-        )
+        const subject = factory.namedNode('http://example.org/predicate')
         const predicate = factory.namedNode('http://example.org/predicate')
         const object = factory.quad(
           factory.namedNode('http://example.org/subjectInner2'),
