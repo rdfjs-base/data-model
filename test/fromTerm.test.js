@@ -43,6 +43,16 @@ function runTests ({ factory, mocha }) {
       notStrictEqual(term, original)
     })
 
+    it('should create a clone of the given Literal with direction', () => {
+      const original = factory.literal('example', { language: 'en', direction: 'rtl' })
+
+      const term = factory.fromTerm(original)
+
+      strictEqual(term.equals(original), true)
+      strictEqual(term.direction, 'rtl')
+      notStrictEqual(term, original)
+    })
+
     it('should create a clone of the given Literal with datatype', () => {
       const original = factory.literal('example', factory.namedNode('http://example.org/'))
 
